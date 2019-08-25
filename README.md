@@ -2,6 +2,8 @@
 
 Example of using NodeJS for Microservices using GraphQL. If you are not familiar with GraphQL, you can find the Simple API example to give you basic understanding about this repo.
 
+The reason I make this repo was because I loved what Netflix did with Java Spring. They created tools for community such as Eureka (Service Discovery), Hystrix (Fault tolerant and monitoring), Zuul (Simple Gateway, can be combined with Eureka) etc. But anyways it just mainly for Java Spring :(. In other case, NodeJS was my best friends and I just love Javascript. So I made this repo in order to make NodeJS can be easily used for microservices like Java Spring with same inspired stack and features!!!
+
 ## Features
 
 This is how good microservices should do, we cover it all in this repo! Thanks to cote (https://github.com/dashersw/cote)
