@@ -1,0 +1,64 @@
+# NodeJS GraphQL Microservices
+
+Example of using NodeJS for Microservices using GraphQL. If you are not familiar with GraphQL, you can find the Simple API example to give you basic understanding about this repo.
+
+## Features
+
+This is how good microservices should do, we cover it all in this repo! Thanks to cote (https://github.com/dashersw/cote)
+
+- Zero dependency: Microservices with only JavaScript and Node.js
+- Zero-configuration: no IP addresses, no ports, no routing to configure
+- Decentralized: No fixed parts, no "manager" nodes, no single point of failure
+- Auto-discovery: Services discover each other without a central bookkeeper
+- Fault-tolerant: Don't lose any requests when a service is down
+- Scalable: Horizontally scale to any number of machines
+- Performant: Process thousands of messages per second
+- Humanized API: Extremely simple to get started with a reasonable API!
+
+## Prerequisites
+
+- Nodejs
+- Redis 
+- MongoDB
+- Docker (optional) I am too lazy to include the docker setup here
+
+## Setup
+
+- run redis on default port 6379
+- run mongodb on default port 27017
+- open the project file, then run the main GraphQL/API Gateway
+```
+$ npm install
+$ node graphql.js #for graphql example
+$ node index.js #for express API example (if You are not familiar with GraphQL but still want to understand this repo :3)
+```
+- run the product-service
+```
+$ cd product-service
+$ npm install
+$ node ProductService.js
+```
+- run the order-service
+```
+$ cd order-service
+$ npm install
+$ node OrderService.js
+```
+
+## Example
+
+The example consists of Gateway (GraphQL/API) which is query are auto discover its microservices across the network (thanks to cote redis). 
+
+The example is just simple DUMMY app (don't expect much! Simple is better). The study case is product and orders. To fulfill the FAULT TOLERANT scenario, You can reproduce it by:
+
+- Run order-service and product-service
+- Execute API using GraphQL createOrder or express POST /order
+- Check the result, and it should create order, and update the product stock
+- Try disconnect product-service
+- Execute APi AGAIN using GraphQL createOrder or express POST /order
+- The API Return something and works fine, BUT
+- The product data is not updated (its normal because product-service still down)
+- RERUN product-service ($ cd product-service && node ProductService.js)
+- It should automatically update the product stock when the product-service is UP!! 
+
+COOL EH???!!
