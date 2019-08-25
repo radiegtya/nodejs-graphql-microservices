@@ -47,9 +47,7 @@ $ node OrderService.js
 
 ## Example
 
-The example consists of Gateway (GraphQL/API) which is query are auto discover its microservices across the network (thanks to cote redis). 
-
-The example is just simple DUMMY app (don't expect much! Simple is better). The study case is product and orders. To fulfill the FAULT TOLERANT and SERVICE DISCOVERY scenario, You can reproduce it by:
+**The example consists of Gateway (GraphQL/API) which is query are auto discover its microservices across the network (thanks to cote redis). Its just simple DUMMY app (don't expect much! Simple is better). The study case is product and orders. To fulfill the FAULT TOLERANT and SERVICE DISCOVERY scenario, You can reproduce it by:**
 
 - Run API on (graphql.js/index.js), order-service, and product-service
 - Execute API using GraphQL createOrder or express POST /order
@@ -73,7 +71,7 @@ mutation createOrder($order: OrderInput){
 - RERUN product-service ($ cd product-service && node ProductService.js)
 - It should automatically update the product stock when the product-service is UP!! 
 
-To give You understanding about how to make DB RELATION alike across multi services, You can reproduce it by:
+**To give You understanding about how to make DB RELATION alike across multi services, You can reproduce it by:**
 
 - Run API on (graphql.js/index.js), order-service, and product-service
 - Execute the orders API via GraphQL or Express GET /orders
