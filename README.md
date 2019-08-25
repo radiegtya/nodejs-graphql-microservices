@@ -62,3 +62,8 @@ The example is just simple DUMMY app (don't expect much! Simple is better). The 
 - It should automatically update the product stock when the product-service is UP!! 
 
 COOL EH???!!
+
+## Attention!!!
+
+- This example still using single database (this is not OP in microservice world), but You can simply use multiple database that runs on each services. The example already separate the db connection logic on each service.
+- The case study is not real world implementation, it only to give you basic understanding of HOW microservices, service discovery, fault tolerant, etc etc etc just works :3
