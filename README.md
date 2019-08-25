@@ -49,10 +49,22 @@ $ node OrderService.js
 
 The example consists of Gateway (GraphQL/API) which is query are auto discover its microservices across the network (thanks to cote redis). 
 
-The example is just simple DUMMY app (don't expect much! Simple is better). The study case is product and orders. To fulfill the FAULT TOLERANT scenario, You can reproduce it by:
+The example is just simple DUMMY app (don't expect much! Simple is better). The study case is product and orders. To fulfill the FAULT TOLERANT and SERVICE DISCOVERY scenario, You can reproduce it by:
 
-- Run order-service and product-service
+- Run API on (graphql.js/index.js), order-service, and product-service
 - Execute API using GraphQL createOrder or express POST /order
+```graphql
+mutation createOrder($order: OrderInput){
+  createOrder (input: $order) {
+    _id
+    qty
+    price
+    product{
+      title
+    }
+  }
+}
+```
 - Check the result, and it should create order, and update the product stock
 - Try disconnect product-service
 - Execute APi AGAIN using GraphQL createOrder or express POST /order
@@ -61,9 +73,28 @@ The example is just simple DUMMY app (don't expect much! Simple is better). The 
 - RERUN product-service ($ cd product-service && node ProductService.js)
 - It should automatically update the product stock when the product-service is UP!! 
 
+To give You understanding about how to make DB RELATION alike across multi services, You can reproduce it by:
+
+- Run API on (graphql.js/index.js), order-service, and product-service
+- Execute the orders API via GraphQL or Express GET /orders
+```graphql
+query {
+  orders {
+    _id
+    product {
+      title
+    }
+    qty
+    price
+  }
+}
+```
+- You will see that, product can be fetched from order, although product is on different service
+
 COOL EH???!!
 
 ## Attention!!!
 
 - This example still using single database (this is not OP in microservice world), but You can simply use multiple database that runs on each services. The example already separate the db connection logic on each service.
 - The case study is not real world implementation, it only to give you basic understanding of HOW microservices, service discovery, fault tolerant, etc etc etc just works :3
+- Use docker to make the service UP again automatically when down, simplified setup, etc. I was not using docker to make this repo as simple as possible.

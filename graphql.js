@@ -20,6 +20,7 @@ const typeDefs = gql`
   }
 
   type Order {
+    _id: String
     productId: String
     product: Product
     userId: String
