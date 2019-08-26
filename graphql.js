@@ -1,4 +1,4 @@
-const { ApolloServer, gql } = require('apollo-server')
+const { ApolloServer, gql, ApolloError } = require('apollo-server')
 const cote = require('cote')({ redis: { host: 'localhost', port: "6379" } })
 
 const productRequester = new cote.Requester({ 
@@ -9,6 +9,11 @@ const orderRequester = new cote.Requester({
     name: 'Order Requester', 
     key: 'order',
 })
+
+// setInterval(()=> {
+//   console.log(productRequester.sock.queue)
+// }, 3000)
+
 
 const typeDefs = gql`
 
@@ -35,6 +40,12 @@ const typeDefs = gql`
     product(_id: String): Product
   }
 
+  input ProductInput {
+    title: String
+    stock: Int
+    price: Int 
+  }
+
   input OrderInput {
     productId: String
     userId: String
@@ -43,6 +54,7 @@ const typeDefs = gql`
   }
 
   type Mutation {
+    createProduct(input: ProductInput): Product
     createOrder(input: OrderInput): Order
   }
 `
@@ -68,6 +80,9 @@ const resolvers = {
     }
   },  
   Mutation: {
+    createProduct: async (_, { input })=> {
+      return await productRequester.send({ type: 'store', body: input }) 
+    },
     createOrder: async (_, { input })=> {
         return await orderRequester.send({ type: 'store', body: input })
     }

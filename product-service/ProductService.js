@@ -28,10 +28,7 @@ productService.on('show', (req, cb) => {
 
 productService.on('store', (req, cb) => {
     const product = new Product(req.body)
-    product.save((err, product)=>{
-        if(err) cb(err)
-        cb(product)
-    })  
+    product.save(cb)
 })
 
 productService.on('update', async (req, cb) => {
